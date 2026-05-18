@@ -103,19 +103,6 @@ A simple online shopping database system using MySQL.
 * MySQL
 * SQL
 * ER Modeling
-
----
-
-# 📂 Repository Structure
-
-```bash
-├── bookstore.txt
-├── BOOKSTORE ER.png
-├── online_shopping.txt
-├── ONLINE SHOPPING ER.png
-└── README.md
-```
-
 ---
 
 # 🎯 Learning Outcomes
