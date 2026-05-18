@@ -1,0 +1,394 @@
+mysql> 
+mysql> CREATE DATABASE online_shopping_db;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE online_shopping_db;
+Database changed
+mysql> 
+mysql> -- Customers Table
+mysql> 
+mysql> CREATE TABLE Customers (
+    ->     customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     name VARCHAR(100),
+    ->     email VARCHAR(100) UNIQUE
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> 
+mysql> INSERT INTO Customers (name, email) VALUES
+    -> ('Arjun', 'arjun@gmail.com'),
+    -> ('Sneha', 'sneha@gmail.com'),
+    -> ('Rahul', 'rahul@gmail.com'),
+    -> ('Priya', 'priya@gmail.com'),
+    -> ('Kiran', 'kiran@gmail.com'),
+    -> ('Meena', 'meena@gmail.com'),
+    -> ('Vikram', 'vikram@gmail.com'),
+    -> ('Anjali', 'anjali@gmail.com'),
+    -> ('Ravi', 'ravi@gmail.com'),
+    -> ('Divya', 'divya@gmail.com');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- Products Table
+mysql> 
+mysql> CREATE TABLE Products (
+    ->     product_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     product_name VARCHAR(150),
+    ->     category VARCHAR(50),
+    ->     price DECIMAL(10,2),
+    ->     stock INT
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO Products (product_name, category, price, stock) VALUES
+    -> ('Laptop', 'Electronics', 55000.00, 10),
+    -> ('Smartphone', 'Electronics', 25000.00, 20),
+    -> ('Headphones', 'Accessories', 2000.00, 50),
+    -> ('Keyboard', 'Accessories', 1500.00, 40),
+    -> ('Mouse', 'Accessories', 800.00, 60),
+    -> ('Smart Watch', 'Wearables', 5000.00, 25),
+    -> ('Tablet', 'Electronics', 30000.00, 15),
+    -> ('Printer', 'Office', 12000.00, 8),
+    -> ('Speaker', 'Audio', 3500.00, 18),
+    -> ('Camera', 'Photography', 45000.00, 5);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- Orders Table
+mysql> 
+mysql> CREATE TABLE Orders (
+    ->     order_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     customer_id INT,
+    ->     order_date DATE,
+    ->     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> 
+mysql> INSERT INTO Orders (customer_id, order_date) VALUES
+    -> (1, '2026-05-01'),
+    -> (2, '2026-05-02'),
+    -> (3, '2026-05-03'),
+    -> (4, '2026-05-04'),
+    -> (5, '2026-05-05'),
+    -> (6, '2026-05-06'),
+    -> (7, '2026-05-07'),
+    -> (8, '2026-05-08'),
+    -> (9, '2026-05-09'),
+    -> (10, '2026-05-10');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- Order_Items Table
+mysql> 
+mysql> CREATE TABLE Order_Items (
+    ->     item_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     order_id INT,
+    ->     product_id INT,
+    ->     quantity INT,
+    ->     price_each DECIMAL(10,2),
+    ->     FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    ->     FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> 
+mysql> INSERT INTO Order_Items (order_id, product_id, quantity, price_each) VALUES
+    -> (1, 1, 1, 55000.00),
+    -> (2, 2, 2, 25000.00),
+    -> (3, 3, 1, 2000.00),
+    -> (4, 4, 1, 1500.00),
+    -> (5, 5, 2, 800.00),
+    -> (6, 6, 1, 5000.00),
+    -> (7, 7, 1, 30000.00),
+    -> (8, 8, 1, 12000.00),
+    -> (9, 9, 2, 3500.00),
+    -> (10, 10, 1, 45000.00);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- VIEW DATA
+mysql> 
+mysql> SELECT * FROM Customers;
++-------------+--------+------------------+
+| customer_id | name   | email            |
++-------------+--------+------------------+
+|           1 | Arjun  | arjun@gmail.com  |
+|           2 | Sneha  | sneha@gmail.com  |
+|           3 | Rahul  | rahul@gmail.com  |
+|           4 | Priya  | priya@gmail.com  |
+|           5 | Kiran  | kiran@gmail.com  |
+|           6 | Meena  | meena@gmail.com  |
+|           7 | Vikram | vikram@gmail.com |
+|           8 | Anjali | anjali@gmail.com |
+|           9 | Ravi   | ravi@gmail.com   |
+|          10 | Divya  | divya@gmail.com  |
++-------------+--------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Products;
++------------+--------------+-------------+----------+-------+
+| product_id | product_name | category    | price    | stock |
++------------+--------------+-------------+----------+-------+
+|          1 | Laptop       | Electronics | 55000.00 |    10 |
+|          2 | Smartphone   | Electronics | 25000.00 |    20 |
+|          3 | Headphones   | Accessories |  2000.00 |    50 |
+|          4 | Keyboard     | Accessories |  1500.00 |    40 |
+|          5 | Mouse        | Accessories |   800.00 |    60 |
+|          6 | Smart Watch  | Wearables   |  5000.00 |    25 |
+|          7 | Tablet       | Electronics | 30000.00 |    15 |
+|          8 | Printer      | Office      | 12000.00 |     8 |
+|          9 | Speaker      | Audio       |  3500.00 |    18 |
+|         10 | Camera       | Photography | 45000.00 |     5 |
++------------+--------------+-------------+----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Orders;
++----------+-------------+------------+
+| order_id | customer_id | order_date |
++----------+-------------+------------+
+|        1 |           1 | 2026-05-01 |
+|        2 |           2 | 2026-05-02 |
+|        3 |           3 | 2026-05-03 |
+|        4 |           4 | 2026-05-04 |
+|        5 |           5 | 2026-05-05 |
+|        6 |           6 | 2026-05-06 |
+|        7 |           7 | 2026-05-07 |
+|        8 |           8 | 2026-05-08 |
+|        9 |           9 | 2026-05-09 |
+|       10 |          10 | 2026-05-10 |
++----------+-------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Order_Items;
++---------+----------+------------+----------+------------+
+| item_id | order_id | product_id | quantity | price_each |
++---------+----------+------------+----------+------------+
+|       1 |        1 |          1 |        1 |   55000.00 |
+|       2 |        2 |          2 |        2 |   25000.00 |
+|       3 |        3 |          3 |        1 |    2000.00 |
+|       4 |        4 |          4 |        1 |    1500.00 |
+|       5 |        5 |          5 |        2 |     800.00 |
+|       6 |        6 |          6 |        1 |    5000.00 |
+|       7 |        7 |          7 |        1 |   30000.00 |
+|       8 |        8 |          8 |        1 |   12000.00 |
+|       9 |        9 |          9 |        2 |    3500.00 |
+|      10 |       10 |         10 |        1 |   45000.00 |
++---------+----------+------------+----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 1. Products with price greater than 10000
+mysql> SELECT * FROM Products
+    -> WHERE price > 10000;
++------------+--------------+-------------+----------+-------+
+| product_id | product_name | category    | price    | stock |
++------------+--------------+-------------+----------+-------+
+|          1 | Laptop       | Electronics | 55000.00 |    10 |
+|          2 | Smartphone   | Electronics | 25000.00 |    20 |
+|          7 | Tablet       | Electronics | 30000.00 |    15 |
+|          8 | Printer      | Office      | 12000.00 |     8 |
+|         10 | Camera       | Photography | 45000.00 |     5 |
++------------+--------------+-------------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 2. Products with stock less than or equal to 20
+mysql> SELECT * FROM Products
+    -> WHERE stock <= 20;
++------------+--------------+-------------+----------+-------+
+| product_id | product_name | category    | price    | stock |
++------------+--------------+-------------+----------+-------+
+|          1 | Laptop       | Electronics | 55000.00 |    10 |
+|          2 | Smartphone   | Electronics | 25000.00 |    20 |
+|          7 | Tablet       | Electronics | 30000.00 |    15 |
+|          8 | Printer      | Office      | 12000.00 |     8 |
+|          9 | Speaker      | Audio       |  3500.00 |    18 |
+|         10 | Camera       | Photography | 45000.00 |     5 |
++------------+--------------+-------------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 3. Products where total stock value is above 100000
+mysql> SELECT product_name, price, stock, price * stock AS stock_value
+    -> FROM Products
+    -> WHERE price * stock > 100000;
++--------------+----------+-------+-------------+
+| product_name | price    | stock | stock_value |
++--------------+----------+-------+-------------+
+| Laptop       | 55000.00 |    10 |   550000.00 |
+| Smartphone   | 25000.00 |    20 |   500000.00 |
+| Smart Watch  |  5000.00 |    25 |   125000.00 |
+| Tablet       | 30000.00 |    15 |   450000.00 |
+| Camera       | 45000.00 |     5 |   225000.00 |
++--------------+----------+-------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 4. Order items where total amount is greater than 5000
+mysql> SELECT order_id, product_id, quantity, price_each,
+    ->        quantity * price_each AS total_amount
+    -> FROM Order_Items
+    -> WHERE quantity * price_each > 5000;
++----------+------------+----------+------------+--------------+
+| order_id | product_id | quantity | price_each | total_amount |
++----------+------------+----------+------------+--------------+
+|        1 |          1 |        1 |   55000.00 |     55000.00 |
+|        2 |          2 |        2 |   25000.00 |     50000.00 |
+|        7 |          7 |        1 |   30000.00 |     30000.00 |
+|        8 |          8 |        1 |   12000.00 |     12000.00 |
+|        9 |          9 |        2 |    3500.00 |      7000.00 |
+|       10 |         10 |        1 |   45000.00 |     45000.00 |
++----------+------------+----------+------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 1. Total number of customers
+mysql> SELECT COUNT(*) AS total_customers
+    -> FROM Customers;
++-----------------+
+| total_customers |
++-----------------+
+|              10 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> -- 2. Average product price
+mysql> SELECT AVG(price) AS average_price
+    -> FROM Products;
++---------------+
+| average_price |
++---------------+
+|  17980.000000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> -- 3. Category-wise total stock
+mysql> SELECT category, SUM(stock) AS total_stock
+    -> FROM Products
+    -> GROUP BY category;
++-------------+-------------+
+| category    | total_stock |
++-------------+-------------+
+| Electronics |          45 |
+| Accessories |         150 |
+| Wearables   |          25 |
+| Office      |           8 |
+| Audio       |          18 |
+| Photography |           5 |
++-------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 4. Category-wise average price
+mysql> SELECT category, AVG(price) AS average_price
+    -> FROM Products
+    -> GROUP BY category;
++-------------+---------------+
+| category    | average_price |
++-------------+---------------+
+| Electronics |  36666.666667 |
+| Accessories |   1433.333333 |
+| Wearables   |   5000.000000 |
+| Office      |  12000.000000 |
+| Audio       |   3500.000000 |
+| Photography |  45000.000000 |
++-------------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 1. Display order details with customer names
+mysql> SELECT o.order_id, c.name, o.order_date
+    -> FROM Orders o
+    -> JOIN Customers c
+    -> ON o.customer_id = c.customer_id;
++----------+--------+------------+
+| order_id | name   | order_date |
++----------+--------+------------+
+|        1 | Arjun  | 2026-05-01 |
+|        2 | Sneha  | 2026-05-02 |
+|        3 | Rahul  | 2026-05-03 |
+|        4 | Priya  | 2026-05-04 |
+|        5 | Kiran  | 2026-05-05 |
+|        6 | Meena  | 2026-05-06 |
+|        7 | Vikram | 2026-05-07 |
+|        8 | Anjali | 2026-05-08 |
+|        9 | Ravi   | 2026-05-09 |
+|       10 | Divya  | 2026-05-10 |
++----------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 2. Display order items with product names
+mysql> SELECT oi.item_id, p.product_name, oi.quantity, oi.price_each
+    -> FROM Order_Items oi
+    -> JOIN Products p
+    -> ON oi.product_id = p.product_id;
++---------+--------------+----------+------------+
+| item_id | product_name | quantity | price_each |
++---------+--------------+----------+------------+
+|       1 | Laptop       |        1 |   55000.00 |
+|       2 | Smartphone   |        2 |   25000.00 |
+|       3 | Headphones   |        1 |    2000.00 |
+|       4 | Keyboard     |        1 |    1500.00 |
+|       5 | Mouse        |        2 |     800.00 |
+|       6 | Smart Watch  |        1 |    5000.00 |
+|       7 | Tablet       |        1 |   30000.00 |
+|       8 | Printer      |        1 |   12000.00 |
+|       9 | Speaker      |        2 |    3500.00 |
+|      10 | Camera       |        1 |   45000.00 |
++---------+--------------+----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 3. Find products costlier than average product price
+mysql> SELECT product_name, price
+    -> FROM Products
+    -> WHERE price > (
+    ->     SELECT AVG(price)
+    ->     FROM Products
+    -> );
++--------------+----------+
+| product_name | price    |
++--------------+----------+
+| Laptop       | 55000.00 |
+| Smartphone   | 25000.00 |
+| Tablet       | 30000.00 |
+| Camera       | 45000.00 |
++--------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 4. Find customers who placed orders
+mysql> SELECT name
+    -> FROM Customers
+    -> WHERE customer_id IN (
+    ->     SELECT customer_id
+    ->     FROM Orders
+    -> );
++--------+
+| name   |
++--------+
+| Arjun  |
+| Sneha  |
+| Rahul  |
+| Priya  |
+| Kiran  |
+| Meena  |
+| Vikram |
+| Anjali |
+| Ravi   |
+| Divya  |
++--------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> Terminal close -- exit!
