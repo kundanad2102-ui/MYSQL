@@ -112,7 +112,7 @@ A simple online shopping database system using MySQL.
 ├── bookstore.txt
 ├── BOOKSTORE ER.png
 ├── online_shopping.txt
-├── ONLINE SHOPPING ER(1).png
+├── ONLINE SHOPPING ER.png
 └── README.md
 ```
 
