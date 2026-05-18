@@ -45,10 +45,6 @@ A complete bookstore management database system designed using MySQL.
 * Nested Queries
 * Joins
 
-## ER Diagram
-
-![Bookstore ER Diagram](BOOKSTORE%20ER.png)
-
 ## Sample Queries
 
 * Books with price greater than 300
@@ -93,10 +89,6 @@ A simple online shopping database system using MySQL.
 * Aggregate Functions
 * SQL Queries
 * Joins
-
-## ER Diagram
-
-![Online Shopping ER Diagram](ONLINE%20SHOPPING%20ER\(1\).png)
 
 ## Sample Queries
 
